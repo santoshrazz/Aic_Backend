@@ -6,4 +6,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./Public"));
 app.use(cors());
 
+// Routes
+import adminRouter from "./Routes/admin.route.js";
+app.use("/admin", adminRouter);
+
 export default app;

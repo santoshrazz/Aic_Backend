@@ -34,7 +34,7 @@ AdminSchema.pre("save", async function (next) {
 AdminSchema.methods.isPasswordCorrect = async function (password) {
   return await bcryptjs.compare(password, this.password);
 };
-adminModel.methods.generateAccessToken = async function () {
+AdminSchema.methods.generateAccessToken = async function () {
   const token = jwt.sign(
     {
       email: this.email,
@@ -48,7 +48,7 @@ adminModel.methods.generateAccessToken = async function () {
   );
   return token;
 };
-adminModel.methods.generateRefreshToken = async function () {
+AdminSchema.methods.generateRefreshToken = async function () {
   const token = jwt.sign(
     {
       id: this._id,
@@ -60,5 +60,5 @@ adminModel.methods.generateRefreshToken = async function () {
   );
   return token;
 };
-
-export const adminModel = mongoose.model("admin", AdminSchema);
+let adminModel;
+export default adminModel = mongoose.model("admin", AdminSchema);
