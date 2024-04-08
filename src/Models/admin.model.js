@@ -21,6 +21,14 @@ const AdminSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    accessToken: {
+      type: String,
+      require: true,
+    },
+    refreshToken: {
+      type: String,
+      require: true,
+    },
   },
   { timestamps: true }
 );
