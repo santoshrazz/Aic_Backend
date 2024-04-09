@@ -1,11 +1,13 @@
-1.Logic for Db connection ------> Done
-2.Logic for Server Listining --------> Done
+1.Logic for Db connection --------------------------> Done
+2.Logic for Server Listining -----------------------> Done
 
 3.Created Models 
     A. Admin Model
-    B. Certificate Model ----------------> Done
+    B. Certificate Model ---------------------------> Done
     C. User Model
     D. Frenchise Model
 
-4.Write the utility logic for multer --------------> Done
+4.Write the utility logic for multer ---------------> Done
 5.Write the utility login for Cloudinery -----------> Done
+6.Added login Route and controller -----------------> Done
+7.Added Logout Route and controller ----------------> Done

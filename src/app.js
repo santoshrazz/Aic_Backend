@@ -10,6 +10,8 @@ app.use(cookieParser());
 
 // Routes
 import adminRouter from "./Routes/admin.route.js";
+import studentRoute from "./Routes/student.route.js";
 app.use("/admin", adminRouter);
+app.use("/students", studentRoute);
 
 export default app;

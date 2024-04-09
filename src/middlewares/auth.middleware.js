@@ -1,10 +1,9 @@
 import jwt from "jsonwebtoken";
 import adminModel from "../Models/admin.model.js";
-async function verifyJWT(req, _, next) {
+async function verifyJWT(req, res, next) {
   try {
     const token =
       req.cookie?.accessToken || req.header("Authorization")?.split(" ")[1];
-    console.log("Token is", token);
     if (!token) {
       return res.status(500).json({ status: false, message: "No Token found" });
     }
@@ -12,7 +11,6 @@ async function verifyJWT(req, _, next) {
     const user = await adminModel
       .findById(decodedToken.id)
       .select("-password -refreshToken");
-    console.log(user);
 
     if (!user) {
       return res

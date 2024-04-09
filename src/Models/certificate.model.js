@@ -53,7 +53,7 @@ const certificateSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default certificateModel = mongoose.model(
+export const certificateModel = mongoose.model(
   "Certificate",
   certificateSchema
 );
