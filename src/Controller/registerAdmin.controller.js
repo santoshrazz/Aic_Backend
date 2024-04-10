@@ -59,9 +59,9 @@ async function loginAdmin(req, res) {
         .status(401)
         .json({ status: false, message: "User doesn't exist" });
     }
-    console.log(user);
     // check if password of user is correct or not
-    const isPasswordCorrect = user.isPasswordCorrect(user.password);
+    const isPasswordCorrect = await user.isPasswordCorrect(password);
+    console.log(isPasswordCorrect);
     if (!isPasswordCorrect) {
       return res
         .status(401)
