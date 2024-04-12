@@ -5,10 +5,12 @@ const certificateSchema = new mongoose.Schema(
     name: {
       type: String,
       require: [true, "Name is required"],
+      uppercase: true,
     },
     fatherName: {
       type: String,
       require: [true, "Father Name is required"],
+      uppercase: true,
     },
     Gender: {
       type: String,
@@ -32,6 +34,7 @@ const certificateSchema = new mongoose.Schema(
     RegistrationNumber: {
       type: String,
       require: true,
+      uppercase: true,
     },
     SerialNumber: {
       type: Number,
@@ -48,6 +51,7 @@ const certificateSchema = new mongoose.Schema(
     place: {
       type: String,
       require: true,
+      uppercase: true,
     },
   },
   { timestamps: true }

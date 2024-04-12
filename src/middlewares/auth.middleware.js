@@ -3,9 +3,11 @@ import adminModel from "../Models/admin.model.js";
 async function verifyJWT(req, res, next) {
   try {
     const token =
-      req.cookie?.accessToken || req.header("Authorization")?.split(" ")[1];
+      req.cookies?.accessToken || req.header("Authorization")?.split(" ")[1];
     if (!token) {
-      return res.status(500).json({ status: false, message: "No Token found" });
+      return res
+        .status(500)
+        .json({ status: false, message: "Please Login Again" });
     }
     const decodedToken = jwt.verify(token, process.env.jwtAccessSecret);
     const user = await adminModel

@@ -7,5 +7,5 @@ import {
 const studentRoute = Router();
 
 studentRoute.route("/create-certificate").post(verifyJWT, Create_Certificate);
-studentRoute.route("/search_Student").post(verifyJWT, Search_Student);
+studentRoute.route("/search_Student").post(Search_Student);
 export default studentRoute;

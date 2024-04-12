@@ -85,15 +85,23 @@ async function Create_Certificate(req, res) {
 
 async function Search_Student(req, res) {
   try {
-    const { serialNumber, name } = req.body;
-    if (!(serialNumber || name)) {
+    let { serialNumber, fatherName } = req.body;
+    fatherName = String(fatherName).toUpperCase();
+
+    if (!(serialNumber || fatherName)) {
+      return res.status(404).json({
+        status: false,
+        message: "SerialNumber or Father Name Required",
+      });
+    }
+    const student = await certificateModel.findOne({
+      SerialNumber: serialNumber,
+    });
+    if (!student || student.fatherName != fatherName) {
       return res
         .status(404)
-        .json({ status: false, message: "SerialNumber or Name Required" });
+        .json({ status: false, message: "Student not found" });
     }
-    const student = await certificateModel.find({
-      $or: [{ SerialNumber: serialNumber }, { applicantName: name }],
-    });
     res.status(200).json({ status: true, message: "Student Found", student });
   } catch (error) {
     console.log("Error at Search_Student", error);
