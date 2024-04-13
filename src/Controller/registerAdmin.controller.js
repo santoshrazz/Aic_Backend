@@ -79,6 +79,7 @@ async function loginAdmin(req, res) {
       .status(200)
       .cookie("accessToken", accessToken, cookieOptions)
       .cookie("refreshToken", refreshToken, cookieOptions)
+      .cookie("myUserCookie", "loggedIn")
       .json({
         status: true,
         message: "logged In Successfully",

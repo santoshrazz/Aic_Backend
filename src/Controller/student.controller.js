@@ -107,4 +107,26 @@ async function Search_Student(req, res) {
     console.log("Error at Search_Student", error);
   }
 }
-export { Create_Certificate, Search_Student };
+
+async function getAllStudent(req, res) {
+  try {
+    const result = await certificateModel.find({});
+    if (result.length < 1) {
+      return res.status(200).json({
+        status: false,
+        message: "No Student Found",
+      });
+    }
+    return res.status(200).json({
+      status: false,
+      message: "Student successFully Fetched",
+      result,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: false,
+      message: "Error in fetching all student",
+    });
+  }
+}
+export { Create_Certificate, Search_Student, getAllStudent };
