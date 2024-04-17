@@ -1,4 +1,5 @@
 import { certificateModel } from "../Models/certificate.model.js";
+import { studentModel } from "../Models/student.model.js";
 async function Create_Certificate(req, res) {
   try {
     // Get data from req.body
@@ -108,7 +109,7 @@ async function Search_Student(req, res) {
   }
 }
 
-async function getAllStudent(req, res) {
+async function getAllStudent(_, res) {
   try {
     const result = await certificateModel.find({});
     if (result.length < 1) {
@@ -129,4 +130,50 @@ async function getAllStudent(req, res) {
     });
   }
 }
-export { Create_Certificate, Search_Student, getAllStudent };
+async function saveStudentRequest(req, res) {
+  try {
+    const { name, email, phone, message } = req.body;
+    if (!(name || email || phone)) {
+      return res
+        .status(401)
+        .json({ status: false, message: "required phone or email" });
+    }
+
+    const isExistedRequested = await studentModel.findOne({ phone });
+    console.log(isExistedRequested);
+    if (isExistedRequested) {
+      return res.status(400).json({
+        status: false,
+        message: "Your Request is already is in process",
+      });
+    }
+    const createdStudentRequest = await studentModel.create({
+      name,
+      email,
+      phone,
+      message,
+    });
+    if (!createdStudentRequest) {
+      return res
+        .status(500)
+        .json({ status: false, message: "fail to process your request" });
+    }
+    return res
+      .status(201)
+      .json({
+        status: false,
+        message: "Your Request is Submitted successfully",
+        createdStudentRequest,
+      });
+  } catch (error) {
+    return res
+      .status(404)
+      .json({ status: false, message: "Error in saveStudent Request", error });
+  }
+}
+export {
+  Create_Certificate,
+  Search_Student,
+  getAllStudent,
+  saveStudentRequest,
+};

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema(
+const studentSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -10,8 +10,8 @@ const userSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    mobileNo: {
-      type: Number,
+    phone: {
+      type: String,
       require: true,
       unique: [true, "User Already Registered with this Mobile Number"],
     },
@@ -24,4 +24,4 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-export const userModel = mongoose.model("User", userSchema);
+export const studentModel = mongoose.model("student", studentSchema);

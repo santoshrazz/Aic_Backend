@@ -40,10 +40,7 @@ AdminSchema.pre("save", async function (next) {
 });
 
 AdminSchema.methods.isPasswordCorrect = async function (password) {
-  console.log("my password is", password);
-  console.log("hash password is", this.password);
   const result = await bcryptjs.compare(password, this.password);
-  console.log(result);
   return result;
 };
 AdminSchema.methods.generateAccessToken = async function () {
