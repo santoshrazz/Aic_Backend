@@ -86,6 +86,77 @@ async function Create_Certificate(req, res) {
   }
 }
 
+async function update_Certificate(req, res) {
+  try {
+    // Get deta from body
+    const {
+      applicantName,
+      fatherName,
+      gender,
+      course,
+      frenchise,
+      admissionDate,
+      fees,
+      registrationNumber,
+      serialNumber,
+      issueDate,
+      percent,
+      place,
+    } = req.body;
+    // Check for empty field
+    if (
+      !(
+        applicantName &&
+        fatherName &&
+        gender &&
+        course &&
+        frenchise &&
+        admissionDate &&
+        registrationNumber &&
+        serialNumber &&
+        issueDate &&
+        percent &&
+        place
+      )
+    ) {
+      return res
+        .status(404)
+        .json({ status: false, message: "Mindotery Fields Required" });
+    }
+    const result = await certificateModel.findOneAndUpdate(
+      {
+        SerialNumber: serialNumber,
+      },
+      {
+        $set: {
+          name: applicantName,
+          fatherName,
+          course,
+          DateOFAdmission: admissionDate,
+          DateOfIssue: issueDate,
+          Gender: gender,
+          fees,
+          place,
+          frenchise,
+          percentage: percent,
+          SerialNumber: serialNumber,
+          RegistrationNumber: registrationNumber,
+        },
+      },
+      {
+        upsert: false,
+      }
+    );
+    if (!result) {
+      return res
+        .status(404)
+        .json({ status: false, message: "Error in Updation" });
+    }
+    res
+      .status(200)
+      .json({ status: true, message: "SuccessFully Updated", result });
+  } catch (error) {}
+}
 //----------> Search Certificate controller (login required) <---------------
 async function Search_Student(req, res) {
   try {
@@ -210,7 +281,6 @@ async function findSinlgeStudentforAdmin(req, res) {
 async function deleteCertificate(req, res) {
   try {
     const id = req.params.id;
-    console.log(deleteCertificate);
     if (!id) {
       return res.status(404).json({ status: false, message: "Id Requires" });
     }
@@ -233,4 +303,5 @@ export {
   saveStudentRequest,
   findSinlgeStudentforAdmin,
   deleteCertificate,
+  update_Certificate,
 };

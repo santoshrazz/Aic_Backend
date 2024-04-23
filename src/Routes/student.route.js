@@ -7,10 +7,13 @@ import {
   findSinlgeStudentforAdmin,
   getAllStudent,
   saveStudentRequest,
+  update_Certificate,
 } from "../Controller/student.controller.js";
 const studentRoute = Router();
 
 studentRoute.route("/create-certificate").post(verifyJWT, Create_Certificate);
+studentRoute.route("/update-certificate").put(verifyJWT, update_Certificate);
+
 studentRoute.route("/search_Certificate").post(Search_Student);
 studentRoute.route("/all_Certificate").get(verifyJWT, getAllStudent);
 studentRoute
