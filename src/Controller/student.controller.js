@@ -85,6 +85,7 @@ async function Create_Certificate(req, res) {
     console.log(`Error In Creating Student`, error);
   }
 }
+// ---------> Funtion to Update a Certificate (login Required) <----------------------------
 
 async function update_Certificate(req, res) {
   try {
@@ -157,8 +158,8 @@ async function update_Certificate(req, res) {
       .json({ status: true, message: "SuccessFully Updated", result });
   } catch (error) {}
 }
-//----------> Search Certificate controller (login required) <---------------
-async function Search_Student(req, res) {
+//----------> Search Certificate controller (No login required) <---------------
+async function Search_Certificate(req, res) {
   try {
     let { serialNumber, fatherName } = req.body;
     fatherName = String(fatherName).toUpperCase();
@@ -185,7 +186,7 @@ async function Search_Student(req, res) {
 
 //----------> getAllStudent Certificate controller (login required) <---------------
 
-async function getAllStudent(_, res) {
+async function getAllCertificate(_, res) {
   try {
     const result = await certificateModel.find({});
     if (result.length < 1) {
@@ -207,7 +208,56 @@ async function getAllStudent(_, res) {
   }
 }
 
-//----------> Create Certificate controller (No login required) <---------------
+//----------> Find Single Student for Admin controller (login required) <---------------
+
+async function findSinlgeCertificateforAdmin(req, res) {
+  try {
+    const SerialNumber = req.body.serialNumber;
+    console.log(SerialNumber);
+    if (!SerialNumber) {
+      return res
+        .status(401)
+        .json({ status: false, message: "Serial Number Required" });
+    }
+    const singleStudent = await certificateModel.findOne({
+      SerialNumber,
+    });
+    console.log(singleStudent);
+    if (!singleStudent) {
+      return res
+        .status(401)
+        .json({ status: false, message: "No Student Found" });
+    }
+    res
+      .status(200)
+      .json({ status: false, message: "Student Found", singleStudent });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+}
+
+//-----------> Funtion to delete a Certificate <--------------------------
+async function deleteCertificate(req, res) {
+  try {
+    const id = req.params.id;
+    if (!id) {
+      return res.status(404).json({ status: false, message: "Id Requires" });
+    }
+    const result = await certificateModel.findByIdAndDelete(id);
+    if (!result) {
+      return res
+        .status(500)
+        .json({ status: false, message: "Unable to delete" });
+    }
+    res.status(200).json({ status: true, message: "Deleted Successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ status: false, error });
+  }
+}
+
+// -----------> Save Student Request Controller (No login Required) <---------------
 
 async function saveStudentRequest(req, res) {
   try {
@@ -248,43 +298,28 @@ async function saveStudentRequest(req, res) {
       .json({ status: false, message: "Error in saveStudent Request", error });
   }
 }
+//------------> Funtion to get all Student Request <---------------------
 
-//----------> Find Single Student for Admin controller (login required) <---------------
-
-async function findSinlgeStudentforAdmin(req, res) {
+async function getAllStudentRequest(_, res) {
   try {
-    const SerialNumber = req.body.serialNumber;
-    console.log(SerialNumber);
-    if (!SerialNumber) {
+    const response = await studentModel.find({});
+    if (!response) {
       return res
-        .status(401)
-        .json({ status: false, message: "Serial Number Required" });
+        .status(404)
+        .json({ status: false, message: "Failed to get Students" });
     }
-    const singleStudent = await certificateModel.findOne({
-      SerialNumber,
-    });
-    console.log(singleStudent);
-    if (!singleStudent) {
-      return res
-        .status(401)
-        .json({ status: false, message: "No Student Found" });
-    }
-    res
-      .status(200)
-      .json({ status: false, message: "Student Found", singleStudent });
+    res.status(200).json({ status: true, message: "Sucess", response });
   } catch (error) {
-    console.log(error);
-    res.status(500).json(error);
+    console.log(`Error at getAllStudentRequest FUntion`, error);
   }
 }
-
-async function deleteCertificate(req, res) {
+async function deleteSingleStudentRequest(req, res) {
   try {
     const id = req.params.id;
     if (!id) {
       return res.status(404).json({ status: false, message: "Id Requires" });
     }
-    const result = await certificateModel.findByIdAndDelete(id);
+    const result = await studentModel.findByIdAndDelete(id);
     if (!result) {
       return res
         .status(500)
@@ -298,10 +333,12 @@ async function deleteCertificate(req, res) {
 }
 export {
   Create_Certificate,
-  Search_Student,
-  getAllStudent,
+  Search_Certificate,
+  getAllCertificate,
   saveStudentRequest,
-  findSinlgeStudentforAdmin,
+  findSinlgeCertificateforAdmin,
   deleteCertificate,
   update_Certificate,
+  getAllStudentRequest,
+  deleteSingleStudentRequest,
 };
