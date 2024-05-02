@@ -13,10 +13,14 @@ const frenchiseSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    ownerAvatar: {
+    openingYear: {
+      type: String,
+      require: true,
+    },
+    frenchiseAvatar: {
       type: String,
     },
   },
   { timestamps: true }
 );
-export const frenchiseModel = mongoose.model("Frenchise", frenchiseModel);
+export const frenchiseModel = mongoose.model("Frenchise", frenchiseSchema);

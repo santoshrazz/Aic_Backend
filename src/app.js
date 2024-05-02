@@ -11,7 +11,9 @@ app.use(cookieParser());
 // Routes
 import adminRouter from "./Routes/admin.route.js";
 import studentRoute from "./Routes/student.route.js";
+import frenchiseRoute from "./Routes/frenchise.route.js";
 app.use("/admin", adminRouter);
 app.use("/students", studentRoute);
+app.use("/frenchise", frenchiseRoute);
 
 export default app;
