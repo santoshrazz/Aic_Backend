@@ -213,7 +213,6 @@ async function getAllCertificate(_, res) {
 async function findSinlgeCertificateforAdmin(req, res) {
   try {
     const SerialNumber = req.body.serialNumber;
-    console.log(SerialNumber);
     if (!SerialNumber) {
       return res
         .status(401)
@@ -222,7 +221,6 @@ async function findSinlgeCertificateforAdmin(req, res) {
     const singleStudent = await certificateModel.findOne({
       SerialNumber,
     });
-    console.log(singleStudent);
     if (!singleStudent) {
       return res
         .status(401)
