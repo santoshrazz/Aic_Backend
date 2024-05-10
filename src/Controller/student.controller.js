@@ -19,21 +19,6 @@ async function Create_Certificate(req, res) {
       percent,
       place,
     } = req.body;
-    // console.log(
-    //   applicantName,
-    //   fatherName,
-    //   gender,
-    //   course,
-    //   frenchise,
-    //   admissionDate,
-    //   fees,
-    //   registrationNumber,
-    //   serialNumber,
-    //   issueDate,
-    //   percent,
-    //   place
-    // );
-    // Validate require field
     if (
       !(
         applicantName &&
@@ -267,7 +252,6 @@ async function saveStudentRequest(req, res) {
     }
 
     const isExistedRequested = await studentModel.findOne({ phone });
-    console.log(isExistedRequested);
     if (isExistedRequested) {
       return res.status(400).json({
         status: false,
