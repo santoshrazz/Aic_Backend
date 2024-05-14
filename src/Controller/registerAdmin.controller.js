@@ -91,7 +91,6 @@ async function loginAdmin(req, res) {
 }
 async function logoutAdmin(req, res) {
   try {
-    console.log("in logoutAdmin");
     const user = adminModel.findByIdAndUpdate(
       req.user.id,
       {
