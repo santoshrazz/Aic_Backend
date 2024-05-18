@@ -7,7 +7,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./Public"));
 app.use(
   cors({
-    origin: "*",
+    origin:
+      "https://664824343800ea77792b782e--delightful-lollipop-8af355.netlify.app/",
+    credentials: true,
   })
 );
 app.use(cookieParser());
