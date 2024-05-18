@@ -8,7 +8,7 @@ app.use(express.static("./Public"));
 app.use(
   cors({
     origin:
-      "https://664824343800ea77792b782e--delightful-lollipop-8af355.netlify.app/",
+      "https://delightful-lollipop-8af355.netlify.app/",
     credentials: true,
   })
 );
