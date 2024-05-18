@@ -8,10 +8,15 @@ app.use(express.static("./Public"));
 app.use(
   cors({
     origin:
-      "https://delightful-lollipop-8af355.netlify.app/",
+      "https://darling-sable-969379.netlify.app/",
     credentials: true,
   })
 );
+
+app.options('*', cors({
+  origin: "https://darling-sable-969379.netlify.app/",
+  credentials: true,
+}));
 app.use(cookieParser());
 
 // Routes
