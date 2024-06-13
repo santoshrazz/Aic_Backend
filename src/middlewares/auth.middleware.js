@@ -4,6 +4,7 @@ async function verifyJWT(req, res, next) {
   try {
     const token =
       req.cookies?.accessToken || req.header("Authorization")?.split(" ")[1];
+    console.log(token);
     if (!token) {
       return res
         .status(500)
